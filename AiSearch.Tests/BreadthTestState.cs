@@ -3,7 +3,7 @@ using System.Linq;
 using AiSearch.OneSide;
 
 
-namespace AiSearch.Tests
+namespace AiSearch.Tests {
 
 	public class BreadthTestState {
 
