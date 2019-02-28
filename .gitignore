@@ -1,0 +1,9 @@
+/packages/*
+*/obj/*
+*/bin/*
+.vs/*
+*.user
+
+*.nuspec
+*.bat
+*.nupkg
