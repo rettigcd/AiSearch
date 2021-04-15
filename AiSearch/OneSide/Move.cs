@@ -3,7 +3,7 @@
 	/// <summary>
 	/// Represents a command to generate a child-state from some parent-state.
 	/// </summary>
-	public interface Move<GameState> {
+	public interface IMove<GameState> {
 
 		/// <summary>
 		/// Like .ToString() but exlicitly meant to be read by people.

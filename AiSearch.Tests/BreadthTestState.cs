@@ -23,12 +23,11 @@ namespace AiSearch.Tests {
 		}
 		
 		public override bool Equals(object obj) {
-			BreadthTestState other = obj as BreadthTestState;
-			return !Object.ReferenceEquals(other,null)
+			return obj is BreadthTestState other
 				&& this.Name == other.Name;
 		}
 
-		public BreadthTestState GenerateChild( Move<BreadthTestState> move ) {
+		public BreadthTestState GenerateChild( IMove<BreadthTestState> move ) {
 			return this.Children.First(child=>child.Name == move.HumanReadable );
 		}
 		

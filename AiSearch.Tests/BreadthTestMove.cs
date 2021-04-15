@@ -11,7 +11,7 @@ namespace AiSearch.Tests {
 
 
 
-	public class BreadthTestMove : Move<BreadthTestState> {
+	public class BreadthTestMove : IMove<BreadthTestState> {
 		public BreadthTestMove( string move ) { HumanReadable = move; }
 		public string HumanReadable { get; set; }
 

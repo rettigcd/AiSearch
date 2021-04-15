@@ -7,7 +7,7 @@ namespace AiSearch.Tests {
 
 	public class Node_Tests {
 
-		class StringMove : Move<string>{
+		class StringMove : IMove<string>{
 			public StringMove(string h) { HumanReadable = h; }
 			public string HumanReadable { get; set; }
 			public string GenerateChild( string state ) { throw new NotImplementedException(); }

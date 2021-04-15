@@ -26,22 +26,22 @@ namespace AiSearch.OneSide {
 
 		// Instead of putting Node2(IGameState) items on the stack which force us to generate all the siblings, even the ones we aren't going to explore
 		// we put a special 'FutureNode' on the stack that will generate the Child node when and if we want to explore it.
-		readonly Stack<DeferredNode> _stack;
+		readonly Stack<IDeferredNode> _stack;
 		readonly int _maxDepth;
-		readonly NodeMoveGenerator<T> _nodeMoveGenerator;
+		readonly INodeMoveGenerator<T> _nodeMoveGenerator;
 
 		#endregion
 
 		/// <summary> Set to true to prevent repeating ancestor nodes. </summary>
 		public bool DontRepeat { get; set; }
 
-		public DepthFirstIterator( NodeMoveGenerator<T> nodeMoveGenerator, int maxDepth ) {
-			_stack = new Stack<DeferredNode>();
+		public DepthFirstIterator( INodeMoveGenerator<T> nodeMoveGenerator, int maxDepth ) {
+			_stack = new Stack<IDeferredNode>();
 			_nodeMoveGenerator = nodeMoveGenerator;
 			_maxDepth = maxDepth;
 		}
 
-		public DepthFirstIterator( MoveGenerator<T> moveGenerator, int maxDepth )
+		public DepthFirstIterator( IMoveGenerator<T> moveGenerator, int maxDepth )
 			:this(new MoveGeneratorWrapper<T>(moveGenerator),maxDepth) {}
 
 
@@ -84,12 +84,12 @@ namespace AiSearch.OneSide {
 
 		#region DeferredNode interface & classes
 
-		interface DeferredNode {
+		interface IDeferredNode {
 			Node<T> Value { get; }
 		}
 
 		// for root node
-		class StaticDeferredNode : DeferredNode {
+		class StaticDeferredNode : IDeferredNode {
 			public StaticDeferredNode(Node<T> node) { _node = node; }
 			public Node<T> Value => _node;
 			readonly Node<T> _node;
@@ -99,14 +99,15 @@ namespace AiSearch.OneSide {
 		/// Binds the Parent node to the child-generating move without actually generating the child.
 		/// </summary>
 		/// <remarks>Enables deferred child generation</remarks>
-		class DeferredChild : DeferredNode {
-			public DeferredChild( Node<T> parent, Move<T> move ) {
+		class DeferredChild : IDeferredNode {
+			public DeferredChild( Node<T> parent, IMove<T> move ) {
 				_parent = parent;
 				_move = move;
 			}
 			public Node<T> Value => new Node<T>( _move.GenerateChild(_parent.State), _move, _parent);
-			Node<T> _parent;
-			Move<T> _move;
+
+			readonly Node<T> _parent;
+			readonly IMove<T> _move;
 		}
 
 		#endregion

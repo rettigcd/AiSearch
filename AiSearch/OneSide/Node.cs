@@ -6,7 +6,7 @@ namespace AiSearch.OneSide {
 	// used by depth first
 	public class Node<GameState> { // could add this: where T : IGameState<T> but that would require adding it in other places too.
 
-		public Node( GameState state, Move<GameState> move, Node<GameState> prev=null ){
+		public Node( GameState state, IMove<GameState> move, Node<GameState> prev=null ){
 			State = state;
 			Move = move;
 			PreviousNode = prev;
@@ -16,7 +16,7 @@ namespace AiSearch.OneSide {
 		public GameState State { get; private set; }
 
 		/// <summary> Move that brought us to this state. Null for root node.</summary>
-		public Move<GameState> Move { get; private set; }
+		public IMove<GameState> Move { get; private set; }
 
 		public Node<GameState> PreviousNode { get; private set; }
 

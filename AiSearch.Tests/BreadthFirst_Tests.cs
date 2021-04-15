@@ -34,8 +34,7 @@ namespace AiSearch.Tests {
 			);
 		}
 
-		
-		BreadthTestState _startState;
+		readonly BreadthTestState _startState;
 		
 		
 		[Fact]public void Depth0(){ this.Depth(0,"A"); }

@@ -7,7 +7,7 @@ namespace AiSearch.Adversary {
 	/// Associates an integer score with a GameState Node.  
 	/// Used primarily by Negamax.
 	/// </summary>
-	public class NodeWithScore<T> where T : AdversaryGs {
+	public class NodeWithScore<T> where T : IAdversaryGs {
 	
 		public Node[] GetNodePath() => Node.GetNodePath();
 

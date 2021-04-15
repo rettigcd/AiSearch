@@ -17,8 +17,7 @@ namespace AiSearch.OneSide {
 	/// etc.
 	/// </summary>
 	public class IterativeDeepeningIterator<T> {
-
-		NodeMoveGenerator<T> _nodeMoveGenerator;
+		readonly INodeMoveGenerator<T> _nodeMoveGenerator;
 
 		readonly int _maxDepth;
 		readonly int _stepSize = 1;
@@ -26,11 +25,11 @@ namespace AiSearch.OneSide {
 
 		public bool DontRepeat { get; set; }
 
-		public IterativeDeepeningIterator( MoveGenerator<T> moveGenerator, int maxDepth, int stepSize = 1, int startDepth = 0 )
+		public IterativeDeepeningIterator( IMoveGenerator<T> moveGenerator, int maxDepth, int stepSize = 1, int startDepth = 0 )
 			:this(new MoveGeneratorWrapper<T>(moveGenerator),maxDepth,stepSize,startDepth)
 		{}
 
-		public IterativeDeepeningIterator( NodeMoveGenerator<T> nodeMoveGenerator, int maxDepth, int stepSize = 1, int startDepth = 0 ) {
+		public IterativeDeepeningIterator( INodeMoveGenerator<T> nodeMoveGenerator, int maxDepth, int stepSize = 1, int startDepth = 0 ) {
 			_nodeMoveGenerator = nodeMoveGenerator;
 			_maxDepth = maxDepth;
 			_stepSize = stepSize;

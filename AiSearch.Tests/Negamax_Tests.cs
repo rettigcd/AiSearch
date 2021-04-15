@@ -5,8 +5,7 @@ using Xunit;
 namespace AiSearch.Tests {
 
 	public class Negamax_Tests 	{
-
-		TestNode _root;
+		readonly TestNode _root;
 
 		public Negamax_Tests(){
 			// http://en.wikipedia.org/wiki/Alpha%E2%80%93beta_pruning

@@ -20,17 +20,17 @@ namespace AiSearch.OneSide {
 
 		readonly Queue<Node<T>> _queue;
 		readonly int _maxDepth;
-		readonly NodeMoveGenerator<T> _nodeMoveGenerator;
+		readonly INodeMoveGenerator<T> _nodeMoveGenerator;
 
 		#endregion
 
 		/// <summary> Set to true to prevent repeating ancestor nodes. </summary>
 		public bool DontRepeat { get; set; }
 
-		public BreadthFirstIterator( MoveGenerator<T> moveGenerator, int maxDepth )
+		public BreadthFirstIterator( IMoveGenerator<T> moveGenerator, int maxDepth )
 			:this(new MoveGeneratorWrapper<T>(moveGenerator),maxDepth) {}
 
-		public BreadthFirstIterator( NodeMoveGenerator<T> nodeMoveGenerator, int maxDepth ) {
+		public BreadthFirstIterator( INodeMoveGenerator<T> nodeMoveGenerator, int maxDepth ) {
 			_queue = new Queue<Node<T>>();
 			_maxDepth = maxDepth;
 			_nodeMoveGenerator = nodeMoveGenerator;
@@ -64,7 +64,7 @@ namespace AiSearch.OneSide {
 		void QueueChildren( Node<T> cur ) {
 
 			if( cur.Depth < _maxDepth )
-				foreach(Move<T> move in _nodeMoveGenerator.GetMoves(cur))
+				foreach(IMove<T> move in _nodeMoveGenerator.GetMoves(cur))
 					_queue.Enqueue( new Node<T>( move.GenerateChild(cur.State), move, cur ) );
 		}
 

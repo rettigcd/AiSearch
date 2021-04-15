@@ -2,10 +2,10 @@
 
 namespace AiSearch.Adversary {
 
-	public interface AdversaryGs {
+	public interface IAdversaryGs {
 
 		// Enumerable so it doesn't have to generate all children if they are not needed.
-		IEnumerable<AdversaryGs> GenerateChildren();
+		IEnumerable<IAdversaryGs> GenerateChildren();
 
 		/// <summary>
 		/// Description move that changed from the previous state to the current state.

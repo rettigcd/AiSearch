@@ -4,7 +4,7 @@ using AiSearch.Adversary;
 
 namespace AiSearch.Tests {
 
-	class TestNode : AdversaryGs {
+	class TestNode : IAdversaryGs {
 
 		// Sets the player to move and alternates every child move until a child is set
 		public TestNode(string name, bool positivePlayerToMove, params TestNode[] children){
@@ -38,7 +38,7 @@ namespace AiSearch.Tests {
 		
 		public string MoveToGetHere{ get; set; }
 		
-		public IEnumerable<AdversaryGs> GenerateChildren(){
+		public IEnumerable<IAdversaryGs> GenerateChildren(){
 			return this.Children;
 		}
 
@@ -47,18 +47,14 @@ namespace AiSearch.Tests {
 		
 		public override bool Equals(object obj) {
 			TestNode other = obj as TestNode;
-			if (other == null) { return false; }
-			return this.MoveToGetHere == other.MoveToGetHere;
+			return other != null && this.MoveToGetHere == other.MoveToGetHere;
 		}
-		
+
 		public static bool operator ==(TestNode lhs, TestNode rhs) {
-			if (ReferenceEquals(lhs, rhs))
-				return true;
-			if (ReferenceEquals(lhs, null) || ReferenceEquals(rhs, null))
-				return false;
-			return lhs.Equals(rhs);
+			return ReferenceEquals(lhs, rhs) 
+				|| lhs is object && rhs is object && lhs.Equals(rhs);
 		}
-		
+
 		public static bool operator !=(TestNode lhs, TestNode rhs){
 			return !(lhs == rhs);
 		}
@@ -66,14 +62,8 @@ namespace AiSearch.Tests {
 		#endregion
 
 		
-		public bool PositivePlayerToMove { 
-			get{
-				if( _posPlayerToMove.HasValue ){ 
-					return _posPlayerToMove.Value; 
-				}
-				throw new Exception("Player to move has not been set for this record: " + this.Name ); 
-			}
-		}
+		public bool PositivePlayerToMove => _posPlayerToMove 
+			?? throw new Exception("Player to move has not been set for this record: " + this.Name );
 		bool? _posPlayerToMove;
 	}
 

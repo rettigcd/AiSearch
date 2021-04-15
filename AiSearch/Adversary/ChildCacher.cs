@@ -32,7 +32,7 @@ namespace AiSearch.Adversary {
 		}
 		
 		Node[] _cachedChildren;
-		Node _node;
+		readonly Node _node;
 	}
 	
 }

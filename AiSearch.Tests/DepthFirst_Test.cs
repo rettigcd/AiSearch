@@ -35,8 +35,8 @@ namespace AiSearch.Tests {
 			);
 
 		}
-		
-		BreadthTestState _startState;
+
+		readonly BreadthTestState _startState;
 		
 		[Theory]
 		[InlineData(0,"A")]
